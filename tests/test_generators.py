@@ -31,8 +31,8 @@ def test_filter_by_wrong_currency(transactions):  # type: ignore[no-untyped-def]
         next(generator)
 
 
-def test_empty_transaction() -> None:  # type: ignore[no-untyped-def]
-    generator = filter_by_currency([], "USD")
+def test_empty_transaction(empty_transactions) -> None:  # type: ignore[no-untyped-def]
+    generator = filter_by_currency(empty_transactions, "USD")
     with pytest.raises(StopIteration):
         next(generator)
 
@@ -46,8 +46,8 @@ def test_transaction_descriptions(transactions):  # type: ignore[no-untyped-def]
     assert next(generator) == "Перевод организации"
 
 
-def test_transaction_descriptions_with_empty_transaction() -> None:
-    generator = transaction_descriptions([])
+def test_transaction_descriptions_with_empty_transaction(empty_transactions) -> None:  # type: ignore[no-untyped-def]
+    generator = transaction_descriptions(empty_transactions)
     with pytest.raises(StopIteration):
         next(generator)
 

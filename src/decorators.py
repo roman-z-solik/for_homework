@@ -31,4 +31,3 @@ def log(filename=None):  # type: ignore[no-untyped-def]
         return wrapper
 
     return decorator
-

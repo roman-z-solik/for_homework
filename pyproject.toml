@@ -1,17 +1,12 @@
-[project]
+[tool.poetry]
 name = "widget-bank"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Roman Z",email = "roman-z@inbox.ru"}
-]
+authors = ["Roman Z <roman-z@inbox.ru>"]
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-]
 
-[tool.poetry]
-packages = [{include = "widget_bank", from = "src"}]
+[tool.poetry.dependencies]
+python = "^3.13"
 
 
 [tool.poetry.group.lint.dependencies]
@@ -19,6 +14,11 @@ flake8 = "^7.2.0"
 mypy = "^1.15.0"
 black = "^25.1.0"
 isort = "^6.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-cov = "^6.1.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

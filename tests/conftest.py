@@ -34,6 +34,11 @@ def wrong_user_date() -> tuple:
 
 
 @pytest.fixture
+def empty_transactions():  # type: ignore[no-untyped-def]
+    return []
+
+
+@pytest.fixture
 def transactions():  # type: ignore[no-untyped-def]
     return [
         {

@@ -141,10 +141,33 @@ my_function error: тип ошибки. Inputs: (1, 2), {}
 
 **external_api.py** содержит 1 функцию:
 
-`currency_conversions`
+`currency_conversions`  
 Функция, которая возвращает сумму транзакции в рублях.  
-#Пример вывода:
+#Пример вывода:  
+Ввод:  
+{
+    "id": 441945886,
+    "state": "EXECUTED",
+    "date": "2019-08-26T10:50:58.294041",
+    "operationAmount": {
+      "amount": "31957.58",
+      "currency": {
+        "name": "руб.",
+        "code": "RUB"
+      }
+    },
+    "description": "Перевод организации",
+    "from": "Maestro 1596837868705199",
+    "to": "Счет 64686473678894779589"
+  }  
 
+Вывод: "31957.58"
+
+**utils.py** содержит 1 функцию:
+
+`read_json_file`  
+Функция, которая принимает JSON-файл из папки data и  
+возвращает список словарей с данными о финансовых транзакциях.  
 
 ## Информация о тестировании:
 
@@ -159,6 +182,8 @@ my_function error: тип ошибки. Inputs: (1, 2), {}
 **test_widget.py**  
 **test_generators.py**  
 **test_decorators.py**
+**test_utils.py**
+**test_external_api.py**
 
 
 ### Требования

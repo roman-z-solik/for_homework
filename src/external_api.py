@@ -12,7 +12,7 @@ def currency_conversions(transaction: dict) -> float | None | Any:
     """Функция, которая возвращает сумму транзакции в рублях"""
     try:
         if not transaction:
-            print("В словаре нет данных")
+            print("Ошибка данных")
 
         currency_data = transaction.get("operationAmount", {}).get("currency", {})
         if currency_data.get("code") == "RUB":

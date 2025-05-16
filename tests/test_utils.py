@@ -11,4 +11,4 @@ def test_read_json_file(input_operations: dict):  # type: ignore[no-untyped-def]
 
 
 def test_read_json_no_file() -> None:  # type: ignore[no-untyped-def]
-    assert read_json_file("1") == []
+    assert read_json_file("5.txt") == []

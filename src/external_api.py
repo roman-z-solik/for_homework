@@ -3,7 +3,7 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-api_key = os.getenv("apilayer_api_key")
+api_key = os.getenv("APILAYER_API_KEY")
 
 
 def currency_conversions(transaction: dict) -> float | None:
@@ -23,12 +23,9 @@ def currency_conversions(transaction: dict) -> float | None:
             print("Ошибка данных")
 
         url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
-        headers = {"apikey": apilayer_api_key}
-
+        headers = {"apikey": api_key}
         response = requests.get(url, headers=headers, timeout=10)
-
         return round(response.json()["result"], 2)
-
     except requests.exceptions.RequestException as e:
         print(f"Ошибка API: {e}")
     except (KeyError, TypeError) as e:

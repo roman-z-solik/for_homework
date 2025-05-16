@@ -12,7 +12,6 @@ def test_currency_conversions_usd(mock_get, input_operations_in_usd):
     mock_response = Mock()
     mock_response.json.return_value = {"result": 7500.50}
     mock_get.return_value = mock_response
-
     result = currency_conversions(input_operations_in_usd)
     assert result == 7500.50
 

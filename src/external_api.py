@@ -1,4 +1,6 @@
 import os
+from typing import Any
+
 import requests
 from dotenv import load_dotenv
 
@@ -6,7 +8,7 @@ load_dotenv()
 api_key = os.getenv("APILAYER_API_KEY")
 
 
-def currency_conversions(transaction: dict) -> float | None:
+def currency_conversions(transaction: dict) -> float | None | Any:
     """Функция, которая возвращает сумму транзакции в рублях"""
     try:
         if not transaction:
@@ -27,6 +29,6 @@ def currency_conversions(transaction: dict) -> float | None:
         response = requests.get(url, headers=headers, timeout=10)
         return round(response.json()["result"], 2)
     except requests.exceptions.RequestException as e:
-        print(f"Ошибка API: {e}")
+        return f"Ошибка API: {e}"
     except (KeyError, TypeError) as e:
-        print(f"Ошибка данных транзакции: {e}")
+        return f"Ошибка данных транзакции: {e}"

@@ -90,7 +90,7 @@ def transactions():  # type: ignore[no-untyped-def]
 
 
 @pytest.fixture
-def input_operations_in_rub():
+def input_operations_in_rub():  # type: ignore[no-untyped-def]
     return {
         "id": 441945886,
         "state": "EXECUTED",
@@ -103,7 +103,7 @@ def input_operations_in_rub():
 
 
 @pytest.fixture
-def input_operations_in_usd():
+def input_operations_in_usd():  # type: ignore[no-untyped-def]
     return {
         "id": 41428829,
         "state": "EXECUTED",
@@ -116,7 +116,7 @@ def input_operations_in_usd():
 
 
 @pytest.fixture
-def input_operations():
+def input_operations():  # type: ignore[no-untyped-def]
     return [
         {
             "id": 441945886,

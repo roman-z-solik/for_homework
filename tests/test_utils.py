@@ -1,5 +1,4 @@
 from unittest.mock import Mock
-
 from src.utils import read_json_file
 
 

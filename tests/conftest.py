@@ -34,12 +34,12 @@ def wrong_user_date() -> tuple:
 
 
 @pytest.fixture
-def empty_transactions():  # type: ignore[no-untyped-def]
+def empty_transactions() -> list[None]:
     return []
 
 
 @pytest.fixture
-def transactions():  # type: ignore[no-untyped-def]
+def transactions() -> list[dict[str, object]]:
     return [
         {
             "id": 939719570,
@@ -90,7 +90,7 @@ def transactions():  # type: ignore[no-untyped-def]
 
 
 @pytest.fixture
-def input_operations_in_rub():  # type: ignore[no-untyped-def]
+def input_operations_in_rub() -> dict[str, object]:
     return {
         "id": 441945886,
         "state": "EXECUTED",
@@ -103,7 +103,7 @@ def input_operations_in_rub():  # type: ignore[no-untyped-def]
 
 
 @pytest.fixture
-def input_operations_in_usd():  # type: ignore[no-untyped-def]
+def input_operations_in_usd() -> dict[str, object]:
     return {
         "id": 41428829,
         "state": "EXECUTED",
@@ -116,7 +116,7 @@ def input_operations_in_usd():  # type: ignore[no-untyped-def]
 
 
 @pytest.fixture
-def input_operations():  # type: ignore[no-untyped-def]
+def input_operations() -> list[dict[str, object]]:
     return [
         {
             "id": 441945886,

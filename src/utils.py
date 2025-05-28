@@ -39,7 +39,7 @@ def read_csv_file(path_csv: str) -> Any | list[dict[Any, Any] | Any | None]:
     try:
         with open(path_csv, "r", encoding="utf-8") as csv_file:
             logger_util.info(f"Файл {path_csv} корректно открыт")
-            df = pd.read_csv(csv_file)
+            df = pd.read_csv(csv_file, delimiter=';')
             return df.to_dict(orient="records")
     except (FileNotFoundError, PermissionError) as e:
         print(f"Ошибка чтения файла {path_csv}: {str(e)}")
@@ -60,13 +60,20 @@ def read_excel_file(path_xls: str) -> Any | list[dict[Any, Any] | Any | None]:
         print(f"Ошибка при чтении файла {path_xls}: {str(e)}")
         return []
 
+# if __name__ == '__main__':
+#     try:
+#         result = read_json_file(f'{root_path}/data/operations.json')
+#         for item in result:
+#             print(item['state'])
+#     except KeyError:
+#         print('None')
+#     # print(result['state'])
+#     # print(result)
 
 # if __name__ == '__main__':
-#     print(read_json_file('data/operations.json'))
-
-
-# if __name__ == '__main__':
-#     print(read_csv_file(f'{root_path}/data/transactions.csv'))
+#     csv_file = read_csv_file(f'{root_path}/data/transactions.csv')
+#     print(csv_file)
+#     print(type(csv_file))
 
 # if __name__ == '__main__':
 #     print(read_excel_file(f'{root_path}/data/transactions_excel.xlsx'))

@@ -1,10 +1,9 @@
-import re
 import logging
-
+import re
 from pathlib import Path
-from typing import Any
 
-from src.utils import read_json_file, read_csv_file, read_excel_file
+from src.utils import read_csv_file, read_excel_file, read_json_file
+from tests.conftest import transactions
 
 root_path = Path(__file__).resolve().parents[1]
 logging.basicConfig(
@@ -17,7 +16,7 @@ logging.basicConfig(
 logger_util = logging.getLogger()
 
 
-def select_transaction_for_type() -> Any | list[dict[Any, Any] | Any | None]:
+def select_file_type() -> list:
     text = """
 Выберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
@@ -25,63 +24,85 @@ def select_transaction_for_type() -> Any | list[dict[Any, Any] | Any | None]:
 3. Получить информацию о транзакциях из XLSX-файла
 """
     while True:
-        type_input = input(f"""{text}
-Ввод: """)
-        if type_input  == "1":
-            result_json = []
-            print("Для обработки выбран JSON файл.")
-            json_read_file = read_json_file(f'{root_path}/data/operations.json')
-            print(json_read_file)
-            try:
-                for item in json_read_file:
-                    if item['state'].lower() in ["executed", "canceled", "pending"]:
-                        result_json.append(item)
-            except KeyError as e:
-                 logger_util.info(f"{e} ошибка")
-            return (result_json)
-            # return(read_json_file(f'{root_path}/data/operations.json'))
+        type_input = input(f"{text}\nВвод: ")
+        if type_input == "1":
+            print(f"\nДля обработки выбран JSON файл.\n")
+            json_read_file = read_json_file(f"{root_path}/data/operations.json")
+            return json_read_file
             break
         elif type_input == "2":
-            print("Для обработки выбран CSV файл.")
-            return (read_csv_file(f'{root_path}/data/transactions.csv'))
+            print("\nДля обработки выбран CSV файл.\n")
+            return read_csv_file(f"{root_path}/data/transactions.csv")
             break
         elif type_input == "3":
-            print("Для обработки выбран Excel файл.")
-            return(read_excel_file(f'{root_path}/data/transactions_excel.xlsx'))
+            print("\nДля обработки выбран Excel файл.\n")
+            return read_excel_file(f"{root_path}/data/transactions_excel.xlsx")
             break
         else:
-            print("Выбран неверный пункт. Повторите ввод.")
+            print(f"\nВыбран неверный пункт. Повторите ввод.")
 
 
-def select_transaction_for_status(transactions:list) -> list:
+def user_input_state() -> str:
+    while True:
+        user_input = input("Ввод: ")
+        if user_input.lower() == "executed" or user_input.lower() == "e" or user_input.lower() == "у":
+            user_state = "EXECUTED"
+            print(f"\nОперации отфильтрованы по статусу {user_state}\n")
+            return(user_state)
+            break
+        elif user_input.lower() == "canceled" or user_input.lower() == "c" or user_input.lower() == "с":
+            user_state = "CANCELED"
+            print(f"\nОперации отфильтрованы по статусу {user_state}\n")
+            return (user_state)
+            break
+        elif user_input.lower() == "pending" or user_input.lower() == "p" or user_input.lower() == "з":
+            user_state = "PENDING"
+            print(f"\nОперации отфильтрованы по статусу {user_state}\n")
+            return (user_state)
+            break
+        else:
+            print(f"\nСтатус операции \"{user_input}\" недоступен. Попробуйте ввести заново.\n")
+
+
+def sort_re(transactions: list, sorted_value:str, sorted_item:str) -> list:
     """Функция принимает список словарей с данными о банковских операциях и строку поиска,
     после чего возвращает список словарей, у которых в описании есть данная строка"""
-    text = """
-Введите статус, по которому необходимо выполнить фильтрацию.
-Доступные для фильтрации статусы: EXECUTED, CANCELED, PENDING."""
-    user_input = input(f"""{text}
-Ввод: """)
-    selected_transactions = []
-    while True:
-        if user_input.lower() not in ["executed", "canceled", "pending"]:
-            print(f"""
-Статус операции "{user_input}" недоступен. Попробуйте ввести заново.""")
-            user_input = input(f"""{text} '
-Ввод: """)
-        else:
-            for item in transactions:
-                try:
-                    if re.findall(str(user_input), item['state'], flags=re.IGNORECASE):
-                        selected_transactions.append(item)
-                except TypeError:
-                    continue
-            return f"""Операции отфильтрованы по статусу {user_input.upper()}
-{selected_transactions}"""
+    sorted_transactions_state = []
+    for item in transactions:
+        try:
+            if re.findall(str(sorted_value), item[sorted_item], flags=re.IGNORECASE):
+                sorted_transactions_state.append(item)
+        except (TypeError,KeyError) as e:
+            logger_util.info(f"{e} ошибка")
+    return (sorted_transactions_state)
 
 
-# transactions = select_transaction_for_type()
-# result = select_transaction_for_status(transactions)
-# print(result)
+def sort(transactions: list, key_value:str, reverse:bool, status:bool) -> list:
+    """Функция принимает список словарей с данными о банковских операциях, строку для сортировки,
+        строку статуса для реверса сортировки, сортирует список, после чего возвращает
+        список словарей"""
+    if status == True:
+        sorted_transactions = sorted(transactions, key=lambda transaction: transaction[key_value], reverse = reverse)
+        return (sorted_transactions)
+    else:
+        return(transactions)
 
-# result = select_transaction_for_type()
-# print(result)
+
+def user_input_y_n() -> bool:
+    """Функция, которая отпределяет, оветил пользователь ДА или НЕТ на вопрос"""
+    user_input = input("Ввод: ")
+    if user_input.lower() == "lf" or user_input.lower() == "да" or user_input.lower() == "l" or user_input.lower() == "д":
+        return(True)
+    else:
+        return(False)
+
+
+def user_input_search(transactions, yes_no):
+    if yes_no == True:
+        search_value = input("\nВведите строку для поиска: ")
+        print(search_value)
+        sorted_transactions = sort_re(transactions, search_value.upper(), "description")
+        print("Отсортировано!")
+        return (sorted_transactions)
+    else:
+        return (transactions)

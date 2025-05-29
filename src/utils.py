@@ -24,7 +24,8 @@ def read_json_file(path_json: str) -> Any | list[dict[Any, Any] | Any | None]:
     try:
         with open(path_json, "r", encoding="utf-8") as json_file:
             logger_util.info(f"Файл {path_json} корректно открыт")
-            return json.load(json_file)
+            json_file_content = json.load(json_file)
+            return json_file_content
     except (FileNotFoundError, json.JSONDecodeError, PermissionError) as e:
         print(f"Ошибка чтения файла {path_json}: {str(e)}")
         logger_util.error(f"Ошибка чтения файла {path_json}: {str(e)}")
@@ -39,7 +40,7 @@ def read_csv_file(path_csv: str) -> Any | list[dict[Any, Any] | Any | None]:
     try:
         with open(path_csv, "r", encoding="utf-8") as csv_file:
             logger_util.info(f"Файл {path_csv} корректно открыт")
-            df = pd.read_csv(csv_file, delimiter=';')
+            df = pd.read_csv(csv_file, delimiter=";")
             return df.to_dict(orient="records")
     except (FileNotFoundError, PermissionError) as e:
         print(f"Ошибка чтения файла {path_csv}: {str(e)}")
@@ -59,21 +60,3 @@ def read_excel_file(path_xls: str) -> Any | list[dict[Any, Any] | Any | None]:
     except (FileNotFoundError, PermissionError) as e:
         print(f"Ошибка при чтении файла {path_xls}: {str(e)}")
         return []
-
-# if __name__ == '__main__':
-#     try:
-#         result = read_json_file(f'{root_path}/data/operations.json')
-#         for item in result:
-#             print(item['state'])
-#     except KeyError:
-#         print('None')
-#     # print(result['state'])
-#     # print(result)
-
-# if __name__ == '__main__':
-#     csv_file = read_csv_file(f'{root_path}/data/transactions.csv')
-#     print(csv_file)
-#     print(type(csv_file))
-
-# if __name__ == '__main__':
-#     print(read_excel_file(f'{root_path}/data/transactions_excel.xlsx'))

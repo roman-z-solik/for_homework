@@ -2,10 +2,8 @@ import logging
 import re
 from pathlib import Path
 
-
-from src.masks import get_mask_account
-from src.widget import get_date
 from src.utils import read_csv_file, read_excel_file, read_json_file
+from src.widget import get_date, mask_account_card
 
 root_path = Path(__file__).resolve().parents[1]
 logging.basicConfig(
@@ -102,15 +100,14 @@ def user_input_y_n() -> bool:
         ):
             return True
         elif (
-                user_input.lower() == "ytn"
-                or user_input.lower() == "нет"
-                or user_input.lower() == "y"
-                or user_input.lower() == "н"
+            user_input.lower() == "ytn"
+            or user_input.lower() == "нет"
+            or user_input.lower() == "y"
+            or user_input.lower() == "н"
         ):
             return False
         else:
             print("\nВведите [Д]а или [Н]ет\n")
-
 
 
 def user_input_search(transactions: list, yes_no: bool) -> list:
@@ -122,21 +119,26 @@ def user_input_search(transactions: list, yes_no: bool) -> list:
         return transactions
 
 
-def count_categories(transactions: list) -> list:
+def count_categories(transactions: list) -> int:
     """Функция подсчета операций по категориям."""
-    counted = [transaction['description'] for transaction in transactions]
+    counted = [transaction["description"] for transaction in transactions]
     qty_operation = len(counted)
-    return (qty_operation)
+    return qty_operation
 
 
 def result_output(transactions: list) -> list:
-    result = []
+    result_list: list = []
     for item in transactions:
+        result_item = {}
         date = get_date(item["date"])
-        decription = item["description"]
-        result = f"{date}  {decription}\n"
-        # if decription == "Открытие вклада":
-        #     return_mask = get_mask_account(item["to"])
-        # elif decription == "Перевод организации"
-        #     return_mask = f"{get_mask_account(item["from"]} -> {get_mask_account})
-    return(result)
+        result_item["date"] = date
+        description = item["description"]
+        result_item["description"] = description
+        if description == "Открытие вклада":
+            result_item["to"] = mask_account_card(item["to"])
+            result_item["from"] = ""
+        else:
+            result_item["to"] = mask_account_card(item["to"])
+            result_item["from"] = mask_account_card(item["from"])
+        result_list.append(result_item)
+    return(result_list)

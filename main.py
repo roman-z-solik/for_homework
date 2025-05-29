@@ -1,5 +1,6 @@
 from pathlib import Path
-from src.interface import select_file_type, sort, sort_re, user_input_state, user_input_y_n, user_input_search, count_categories, result_output
+from src.interface import select_file_type, sort, sort_re
+from src.interface import user_input_state, user_input_y_n, user_input_search, count_categories, result_output
 
 root_path = Path(__file__).resolve().parents[1]
 
@@ -29,12 +30,10 @@ if __name__ == "__main__":
     if count == 0:
         print("\nНе найдено ни одной транзакции, \nподходящей под ваши условия фильтрации")
     else:
-        print(f"Всего банковских операций в выборке: {count}")
+        print(f"Всего банковских операций в выборке: {count}\n")
         result = result_output(transact)
-        print(result)
-
-    # if transact != []:
-    #     for transaction in transact:
-    #         print(transaction)
-    # else:
-    #     print("\nНе найдено ни одной транзакции, \nподходящей под ваши условия фильтрации")
+    for item in result:
+        if item["description"] == "Открытие вклада":
+            print(f"{item["date"]} {item["description"]}\n{item["from"]}{item["to"]}")
+        else:
+            print(f"{item["date"]} {item["description"]}\n{item["from"]} -> {item["to"]}")

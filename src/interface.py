@@ -17,6 +17,8 @@ logger_util = logging.getLogger()
 
 
 def select_file_type() -> list:
+    """Функция предоставляет выбор пользователю, из какого файла импортировать
+    данные о банковских операциях: JSON, CSV или XLSX и возвращает список транзакций"""
     text = """
 Выберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
@@ -43,6 +45,9 @@ def select_file_type() -> list:
 
 
 def user_input_state() -> str:
+    """Функция принимает ввод от пользователя, обозначающий статус,
+    по которому необходимо выполнить фильтрацию. Доступные для фильтровки
+    статусы: EXECUTED, CANCELED, PENDING"""
     while True:
         user_input = input("Ввод: ")
         if user_input.lower() == "executed" or user_input.lower() == "e" or user_input.lower() == "у":
@@ -80,7 +85,7 @@ def sort_re(transactions: list, sorted_value: str, sorted_item: str) -> list:
 def sort(transactions: list, key_value: str, reverse: bool, status: bool) -> list:
     """Функция принимает список словарей с данными о банковских операциях, строку для сортировки,
     строку статуса для реверса сортировки, сортирует список, после чего возвращает
-    список словарей"""
+    список словарей."""
     if status:
         sorted_transactions = sorted(transactions, key=lambda transaction: transaction[key_value], reverse=reverse)
         return sorted_transactions
@@ -89,7 +94,7 @@ def sort(transactions: list, key_value: str, reverse: bool, status: bool) -> lis
 
 
 def user_input_y_n() -> bool:
-    """Функция, которая отпределяет, оветил пользователь ДА или НЕТ на вопрос"""
+    """Функция, отпределяющая, оветил пользователь ДА или НЕТ на вопрос"""
     while True:
         user_input = input("Ввод: ")
         if (
@@ -111,6 +116,8 @@ def user_input_y_n() -> bool:
 
 
 def user_input_search(transactions: list, yes_no: bool) -> list:
+    """Функция поиска определяемой пользователем строки в списке транзакций,
+    и выдает отсортированный список по запросу пользователяuser_input_search"""
     if yes_no:
         search_value = input("\nИщем транзакции по определенному слову.\nВведите строку для поиска: ")
         sorted_transactions = sort_re(transactions, search_value.upper(), "description")
@@ -127,6 +134,7 @@ def count_categories(transactions: list) -> int:
 
 
 def result_output(transactions: list) -> list:
+    """Формирование окончательного вывода согласно задания."""
     result_list: list = []
     for item in transactions:
         result_item = {}
@@ -141,4 +149,4 @@ def result_output(transactions: list) -> list:
             result_item["to"] = mask_account_card(item["to"])
             result_item["from"] = mask_account_card(item["from"])
         result_list.append(result_item)
-    return(result_list)
+    return result_list

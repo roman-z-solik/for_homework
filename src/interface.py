@@ -17,7 +17,7 @@ logger_util = logging.getLogger()
 
 
 def user_input_y_n() -> bool:
-    """Функция, отпределяющая, оветил пользователь ДА или НЕТ на вопрос"""
+    """Функция, определяющая, ответил пользователь ДА или НЕТ на вопрос"""
     while True:
         user_input = input("Ввод: ")
         if (
@@ -69,7 +69,7 @@ def import_data() -> list:
 
 
 def sort_data_JSON(data: list) -> list:
-    """Приводит импортированные из JSON файла данные в нужный вид"""
+    """Приводит импортированные из JSON файла данные в нужный вид."""
     sorted_data = []
     for item in data:
         if item != {}:
@@ -96,7 +96,7 @@ def sort_data_JSON(data: list) -> list:
 
 
 def sort_data_csv_xlsx(data: list) -> list:
-    """Приводит импортированные из CSV или Excel файла данные в нужный вид"""
+    """Приводит импортированные из CSV или Excel файла данные в нужный вид."""
     sorted_data = []
     for item in data:
         sorted_item = {}
@@ -156,8 +156,8 @@ def input_sort_by_state() -> str:
 
 
 def sort_re(transactions: list, sorted_value: str, sorted_item: str) -> list:
-    """Функция принимает список словарей с данными о банковских операциях и строку поиска,
-    после чего возвращает список словарей, у которых в описании есть данная строка"""
+    """Функция принимает список словарей с данными о банковских операциях и данные для поиска,
+    после чего возвращает список отсортированных с помощью библиотеки re словарей."""
     sorted_transactions = []
     for item in transactions:
         if re.findall(str(sorted_value), item[sorted_item], flags=re.IGNORECASE):
@@ -175,12 +175,13 @@ def sort(transactions: list, sort_direction: bool, key_value: str) -> list:
 
 
 def count_categories(transactions: list) -> int:
-    """Функция подсчета кол.операций"""
+    """Функция подсчета количества операций"""
     counted = [transaction["description"] for transaction in transactions]
     qty_operation = len(counted)
     return qty_operation
 
 def print_result(transactions: list) -> None:
+    """Выводит в консоль отсортированные готовые данные."""
     print("\nРаспечатываю итоговый список транзакций...\n")
     count = count_categories(transactions)
     if count == 0:

@@ -132,7 +132,12 @@ def input_sort_by_state() -> str:
     )
     while True:
         user_input = input("Ввод: ")
-        if user_input.lower() == "executed" or user_input.lower() == "e" or user_input.lower() == "t" or user_input == "у":
+        if (
+            user_input.lower() == "executed"
+            or user_input.lower() == "e"
+            or user_input.lower() == "t"
+            or user_input == "у"
+        ):
             user_state = "EXECUTED"
             print(f"\nОперации отфильтрованы по статусу {user_state}\n")
             return user_state
@@ -142,7 +147,12 @@ def input_sort_by_state() -> str:
             print(f"\nОперации отфильтрованы по статусу {user_state}\n")
             return user_state
             break
-        elif user_input.lower() == "pending" or user_input.lower() == "p" or user_input.lower() == "з" or user_input == "h":
+        elif (
+            user_input.lower() == "pending"
+            or user_input.lower() == "p"
+            or user_input.lower() == "з"
+            or user_input == "h"
+        ):
             user_state = "PENDING"
             print(f"\nОперации отфильтрованы по статусу {user_state}\n")
             return user_state
@@ -179,6 +189,7 @@ def count_categories(transactions: list) -> int:
     counted = [transaction["description"] for transaction in transactions]
     qty_operation = len(counted)
     return qty_operation
+
 
 def print_result(transactions: list) -> None:
     """Выводит в консоль отсортированные готовые данные."""

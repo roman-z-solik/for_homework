@@ -1,5 +1,5 @@
 from src.interface import import_data, user_input_y_n, input_sort_by_state, sort_re
-from src.interface import sort, count_categories, print_result
+from src.interface import sort, print_result
 
 if __name__ == "__main__":
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
@@ -11,7 +11,7 @@ if __name__ == "__main__":
     if sort_date:
         print("Отсортировать по возрастанию или по убыванию? По убыванию - [Д]а/По возрастанию - [Н]ет")
         direction = user_input_y_n()
-        transact = sort (transact, direction, "date")
+        transact = sort(transact, direction, "date")
     print("\nВыводить только рублевые транзакции? [Д]а/[Н]ет")
     yes_no = user_input_y_n()
     if yes_no:

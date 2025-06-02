@@ -128,3 +128,81 @@ def input_operations() -> list[dict[str, object]]:
             "to": "Счет 64686473678894779589",
         }
     ]
+
+
+@pytest.fixture
+def sorted_transactions() -> list[dict[str, object]]:
+    return [
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "amount": "9824.07",
+            "currency_name": "USD",
+            "currency_code": "USD",
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702",
+        },
+        {
+            "id": 142264268,
+            "state": "CANCELED",
+            "date": "2019-04-04T23:20:05.206878",
+            "amount": "79114.93",
+            "currency_name": "USD",
+            "currency_code": "USD",
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188",
+        },
+        {
+            "id": 873106923,
+            "state": "PENDING",
+            "date": "2019-03-23T01:09:46.296404",
+            "amount": "43318.34",
+            "currency_name": "руб.",
+            "currency_code": "RUB",
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160",
+        },
+    ]
+
+
+@pytest.fixture
+def sorted_transactions_by_state() -> list:
+    return [
+        {
+            "id": 4699552.0,
+            "state": "CANCELED",
+            "date": "2021-03-23T08:29:37Z",
+            "amount": 23423.0,
+            "currency_name": "Peso",
+            "currency_code": "PHP",
+            "from": "Discover 7269000803370165",
+            "to": "American Express 1963030970727681",
+            "description": "Перевод с карты на карту",
+        },
+        {
+            "id": 2177828.0,
+            "state": "EXECUTED",
+            "date": "2022-04-14T15:14:21Z",
+            "amount": 24853.0,
+            "currency_name": "Yuan Renminbi",
+            "currency_code": "CNY",
+            "from": "Счет 38577962752140632721",
+            "to": "Счет 47657753885349826314",
+            "description": "Перевод со счета на счет",
+        },
+        {
+            "id": 214410.0,
+            "state": "PENDING",
+            "date": "2020-10-29T09:56:28Z",
+            "amount": 34336.0,
+            "currency_name": "Krona",
+            "currency_code": "SEK",
+            "from": "Discover 6590095029387674",
+            "to": "Mastercard 0974688087552673",
+            "description": "Перевод с карты на карту",
+        },
+    ]

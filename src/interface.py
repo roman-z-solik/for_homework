@@ -172,7 +172,6 @@ def sort_re(transactions: list, sorted_value: str, sorted_item: str) -> list:
     for item in transactions:
         if re.findall(str(sorted_value), item[sorted_item], flags=re.IGNORECASE):
             sorted_transactions.append(item)
-            # print(sorted_transactions)
     return sorted_transactions
 
 
